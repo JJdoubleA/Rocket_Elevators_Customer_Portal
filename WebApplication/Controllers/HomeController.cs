@@ -22,7 +22,14 @@ namespace WebApplication.Controllers
         {
             return View();
         }
-
+        public IActionResult Registration()
+        {
+            return View("Views/Home/Registration.cshtml");
+        }
+        public IActionResult Sign_in()
+        {
+            return View("Views/Home/Sign_in.cshtml");
+        }
         public IActionResult Privacy()
         {
             return View();
