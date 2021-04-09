@@ -22,7 +22,7 @@ namespace WebApplication.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("Views/Home/Index.cshtml");
         }
         public IActionResult Registration()
         {
@@ -31,6 +31,14 @@ namespace WebApplication.Controllers
         public IActionResult Sign_in()
         {
             return View("Views/Home/Sign_in.cshtml");
+        }
+        public IActionResult Intervention()
+        {
+            return View("Areas/Identity/Pages/Account/Intervention.cshtml");
+        }
+        public IActionResult Product_Management()
+        {
+            return View("Areas/Identity/Pages/Account/Product_Management.cshtml");
         }
         public IActionResult Privacy()
         {
