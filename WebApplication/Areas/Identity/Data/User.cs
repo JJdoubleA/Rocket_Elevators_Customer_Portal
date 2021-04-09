@@ -11,9 +11,10 @@ namespace WebApplication.Areas.Identity.Data
     public class User : IdentityUser
     {
         [PersonalData]
-        [Column(TypeName = "nvarchar(100)")]
+        [Column(TypeName = "nvarchar(50)")]
         public string Email { get; set; }
         [PersonalData]
+        [Column(TypeName = "nvarchar(50)")]
         public string Password { get; set; }
     }
 }
