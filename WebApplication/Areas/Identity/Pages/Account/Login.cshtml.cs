@@ -80,7 +80,7 @@ namespace WebApplication.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                using (var client = new HttpClient())
+                using var client = new HttpClient();
                 {
                     client.BaseAddress = new Uri("https://rocket-rest-api.herokuapp.com/api/Customers/");
                     //HTTP GET

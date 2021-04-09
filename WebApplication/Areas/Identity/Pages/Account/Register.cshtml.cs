@@ -72,12 +72,14 @@ namespace WebApplication.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
-                using (var client = new HttpClient())
-                {
+                    using var client = new HttpClient();
+                
                     client.BaseAddress = new Uri("https://rocket-rest-api.herokuapp.com/api/Customers/");
                     //HTTP GET
                     var responseTask = client.GetAsync(Input.Email);
@@ -87,9 +89,27 @@ namespace WebApplication.Areas.Identity.Pages.Account
                     var readTask = apiresult.Content.ReadAsAsync<bool>();
                     readTask.Wait();
                     var customer = readTask.Result;
-                    
+
                     var user = new User { UserName = Input.Email, Email = Input.Email };
                     var result = await _userManager.CreateAsync(user, Input.Password);
+
+                    if (customer == true)
+                    {
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    var callbackUrl = Url.Page(
+                        "/Account/ConfirmEmail",
+                        pageHandler: null,
+                        values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
+                        protocol: Request.Scheme);
+
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                     }
+                    if (customer == false)
+                    {
+                    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                }
                     if (result.Succeeded)
                     {
                         _logger.LogInformation("User created a new account with password.");
@@ -109,6 +129,7 @@ namespace WebApplication.Areas.Identity.Pages.Account
                         {
                             return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
                         }
+
                         else
                         {
                             await _signInManager.SignInAsync(user, isPersistent: false);
@@ -126,4 +147,4 @@ namespace WebApplication.Areas.Identity.Pages.Account
             }
         }
     }
-}
+
