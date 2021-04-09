@@ -141,6 +141,7 @@
 				<form action="/interventions" method="get" id="intervention-form" >
 
 					<div class="col-lg-12 text-center offset-lg-12">
+						<label>Customer:</label>
 						<select name="customers" id="customers">
 							<option value="" selected="selected">Logged in user</option>
 							<option value="1">example user</option>
@@ -148,23 +149,26 @@
 					</div>
 					<br>
 					<div class="col-lg-12 text-center offset-lg-12">
+						<label>Buildings:</label>
 						<select name="buildings" id="buildings">
 							<option>Select a building</option>
-							<option value="1">example building</option>
+							<option value="10"></option>
 						</select>
 					</div>
 					<br>
 					<div class="col-lg-12 text-center offset-lg-12">
+						<label>Batteries:</label>
 						<select name="batteries" id="batteries">
 							<option>Select a batteries</option>
-							<option value="1">example battery</option>
+							<option value="10">example battery</option>
 						</select>
 					</div>
 					<br>
 					<div class="col-lg-12 text-center offset-lg-12">
+						<label>Columns:</label>
 						<select name="columns" id="columns">
 							<option>Select a columns</option>
-							<option value="1">example column</option>
+							<option value="10">example column</option>
 						</select>
 
 					</div>
@@ -177,7 +181,7 @@
 
 				</form>
 				<div class="col-lg-12 text-center offset-lg-12">
-						<button onclick="">Fetch</button>
+						<button class="btn-primary" onclick="">Submit</button>
 				</div>
 			</div>
 		</div>
@@ -201,18 +205,3 @@
 		<script src="/js/intervention.js"></script>
 	</body>
 </html>
-<script type="text/javascript">    
-	
-	function getData(){
-		$.ajax({
-			url:"https://rocket-rest-api.herokuapp.com/api/Customers/",
-			type:"GET",
-			dataType: "JSON",
-			data: JSON.stringify({ }),
-			success: function(data){
-				$('#intervention-form').append("<form>"+JSON.stringify(data)+"</form>")
-			}
-		});
-	}
-
-</script>
