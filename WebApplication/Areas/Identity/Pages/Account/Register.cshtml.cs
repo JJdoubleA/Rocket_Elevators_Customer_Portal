@@ -108,8 +108,11 @@ namespace WebApplication.Areas.Identity.Pages.Account
                      }
                     if (customer == false)
                     {
-                    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                }
+                    //change line here *************\\\\\\\\\\\\------------------------------
+                    
+                    RedirectResult RedirectResult = Redirect("https://localhost:44317/Identity/Account/Register");
+                    return RedirectResult;
+                    }
                     if (result.Succeeded)
                     {
                         _logger.LogInformation("User created a new account with password.");
