@@ -1,6 +1,8 @@
 ﻿@page
+@using Microsoft.AspNetCore.Identity
 
-
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -73,46 +75,7 @@
 										HOME
 									</a>
 								</li>
-								<!-- ABOUT -->
-								<li class="dropdown">
-									<a class="dropdown-toggle" href="#">
-										ABOUT
-									</a>
-									<ul class="dropdown-menu">
-										<li><a href="#about">ABOUT ROCKET</a></li>
-										<li><a href="#skills">OUR SKILLS</a></li>
-									</ul>
-								</li>
-								<!-- WORK -->
-								<li>
-									<a href="#work">
-										WORK
-									</a>
-								</li>
-								<!-- TEAM -->
-								<li>
-									<a href="#team">
-										TEAM
-									</a>
-								</li>
-								<!-- SERVICES -->
-								<li>
-									<a href="#services">
-										SERVICES
-									</a>
-								</li>
-								<!-- PRICING -->
-								<li>
-									<a href="#pricing">
-										PRICING
-									</a>
-								</li>
-								<!-- CONTACT -->
-								<li>
-									<a href="#contact">
-										CONTACT
-									</a>
-								</li>
+								
 								<!-- ACCOUNT -->
 								<li class='dropdown'>
 									<a class='dropdown-toggle' href="#">
@@ -143,8 +106,7 @@
 					<div class="col-lg-12 text-center offset-lg-12">
 						<label>Customer:</label>
 						<select name="customers" id="customers">
-							<option value="" selected="selected">Logged in user</option>
-							<option value="1">example user</option>
+							<option selected>@UserManager.GetUserName(User)</option>
 						</select>
 					</div>
 					<br>
